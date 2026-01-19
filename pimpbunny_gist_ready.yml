@@ -2,75 +2,70 @@ name: PimpBunny
 sceneByURL:
   - action: scrapeXPath
     url:
-      - https://www.pimpbunny.com
+      - 'https://www.pimpbunny.com'
       - pimpbunny.com
     scraper: sceneScraper
-
 sceneByName:
   action: scrapeXPath
-  queryURL: https://pimpbunny.com/search/{}/
+  queryURL: 'https://pimpbunny.com/search/{}/'
   scraper: sceneSearch
-
 sceneByQueryFragment:
   action: scrapeXPath
   queryURL: '{url}'
   scraper: sceneScraper
-
 sceneByFragment:
   action: scrapeXPath
-  queryURL: https://pimpbunny.com/videos/{filename}/
+  queryURL: 'https://pimpbunny.com/videos/{filename}/'
   queryURLReplace:
     filename:
-      # expects an id in square brackets before extension
       - regex: '.*\[([0-9a-zA-Z]{4,})\]\..+'
         with: $1
-      # or expects a numeric id at the end of the filename
-      - regex: '^.*?(\d+)\..+$'
+      - regex: ^.*?(\d+)\..+$
         with: $1
-      # if no id is found, clear the filename
       - regex: '.*\.[^\.]+$'
-        with:
-    $searchItem: "//div[contains(@class,'pb-thumb-link')]"
+        with: null
+    $searchItem: '//div[contains(@class,''pb-thumb-link'')]'
   scene:
-    Title: "$searchItem//div[contains(@class,'pb-title')]/text()"
+    Title: '$searchItem//div[contains(@class,''pb-title'')]/text()'
     URL:
-      selector: "$searchItem//@href"
+      selector: $searchItem//@href
       postProcess:
         - replace:
-            - regex: '^'
+            - regex: ^
               with: 'https://pimpbunny.com'
     Image:
-      selector: "$searchItem//img/@data-src"
-
+      selector: $searchItem//img/@data-src
 sceneScraper:
   scene:
-    Title: "//meta[@property='og:title']/@content"
+    Title: '//meta[@property=''og:title'']/@content'
     Date:
-      selector: "//script[contains(text(),'uploadDate')]/text()"
+      selector: '//script[contains(text(),''uploadDate'')]/text()'
       postProcess:
         - replace:
             - regex: '.*uploadDate":\s*"([0-9]{4}-[0-9]{2}-[0-9]{2})".*'
-              with: '$1'
+              with: $1
         - parseDate: '2006-01-02'
     Tags:
-      Name: "//div[contains(@class, 'tags')]//a | //a[@rel='tag']"
+      Name: '//div[contains(@class, ''tags'')]//a | //a[@rel=''tag'']'
     Performers:
-      Name: "//div[contains(@class, 'model') or contains(@class, 'performer')]//a//text() | //span[@class='performer']/text()"
+      Name: >-
+        //div[contains(@class, 'model') or contains(@class,
+        'performer')]//a//text() | //span[@class='performer']/text()
     Image:
-      selector: "//meta[@property='og:image']/@content | //div[contains(@class, 'video-poster')]//img/@src | //div[contains(@class, 'player')]//img/@src"
+      selector: >-
+        //meta[@property='og:image']/@content | //div[contains(@class,
+        'video-poster')]//img/@src | //div[contains(@class, 'player')]//img/@src
       postProcess:
         - replace:
             - regex: '^(.+?)(?:\?|$)'
               with: $1
-    URL: "//meta[@property='og:url']/@content"
-    Description: "//meta[@name='description']/@content"
-
+    URL: '//meta[@property=''og:url'']/@content'
+    Description: '//meta[@name=''description'']/@content'
 driver:
-  # NOTE: Cookies are likely expired. Update these with fresh cookies from the site
   cookies:
     - CookieURL: 'https://pimpbunny.com'
       Cookies:
-        - Name: 'PHPSESSID'
+        - Name: PHPSESSID
           Value: ''
-        - Name: 'cf_clearance'
+        - Name: cf_clearance
           Value: ''
