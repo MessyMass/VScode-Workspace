@@ -1,5 +1,4 @@
 name: PimpBunny
-
 sceneByURL:
   - action: scrapeXPath
     url:
