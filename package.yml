@@ -1,0 +1,4 @@
+- name: pimpbunny
+  description: PimpBunny Scene Scraper
+  url: https://gist.githubusercontent.com/MessyMass/066254748fd8adae57a262e4fd80b6ca/raw/pimpbunny_gist_ready.yml
+  type: scene
