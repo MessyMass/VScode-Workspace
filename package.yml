@@ -1,4 +1,4 @@
 - name: pimpbunny
   description: PimpBunny Scene Scraper
-  url: https://github.com/MessyMass/VScode-Workspace/blob/main/pimpbunny_gist_ready.yml
+  url: https://raw.githubusercontent.com/MessyMass/VScode-Workspace/refs/heads/main/pimpbunny_gist_ready.yml
   type: scene
