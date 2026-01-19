@@ -2,7 +2,7 @@
   name: PimpBunny Scene Scraper
   version: "1.0"
   date: "2026-01-19 00:00:00"
-  path:   path: https://raw.githubusercontent.com/MessyMass/VScode-Workspace/refs/heads/main/pimpbunny.zip
+  path: https://raw.githubusercontent.com/MessyMass/VScode-Workspace/refs/heads/main/pimpbunny.zip
   sha256: "38ac9023259d5c01c5070b4d01753e803ce58e70ac5a3c68ec0c95554684da6d"
   metadata:
     type: scene
